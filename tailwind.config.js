@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./shopify-tailwind-starter-base/**/*.{liquid}'],
+  content: ['./**/*.{liquid}'],
   theme: {
     extend: {},
   },
