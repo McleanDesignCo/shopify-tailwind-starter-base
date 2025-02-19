@@ -78,6 +78,9 @@
 .flex-1 {
   flex: 1;
 }
+.flex-grow {
+  flex-grow: 1;
+}
 .grow {
   flex-grow: 1;
 }
@@ -147,6 +150,9 @@
 .text-balance {
   text-wrap: balance;
 }
+.text-wrap {
+  text-wrap: wrap;
+}
 .capitalize {
   text-transform: capitalize;
 }
@@ -170,6 +176,18 @@
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast)
     var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate)
     var(--tw-sepia) var(--tw-drop-shadow);
+}
+.backdrop-filter {
+  -webkit-backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness)
+    var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale)
+    var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert)
+    var(--tw-backdrop-opacity) var(--tw-backdrop-saturate)
+    var(--tw-backdrop-sepia);
+  backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness)
+    var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale)
+    var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert)
+    var(--tw-backdrop-opacity) var(--tw-backdrop-saturate)
+    var(--tw-backdrop-sepia);
 }
 .transition {
   transition-property: color, background-color, border-color, outline-color,
@@ -306,6 +324,42 @@
   inherits: false;
 }
 @property --tw-drop-shadow {
+  syntax: '*';
+  inherits: false;
+}
+@property --tw-backdrop-blur {
+  syntax: '*';
+  inherits: false;
+}
+@property --tw-backdrop-brightness {
+  syntax: '*';
+  inherits: false;
+}
+@property --tw-backdrop-contrast {
+  syntax: '*';
+  inherits: false;
+}
+@property --tw-backdrop-grayscale {
+  syntax: '*';
+  inherits: false;
+}
+@property --tw-backdrop-hue-rotate {
+  syntax: '*';
+  inherits: false;
+}
+@property --tw-backdrop-invert {
+  syntax: '*';
+  inherits: false;
+}
+@property --tw-backdrop-opacity {
+  syntax: '*';
+  inherits: false;
+}
+@property --tw-backdrop-saturate {
+  syntax: '*';
+  inherits: false;
+}
+@property --tw-backdrop-sepia {
   syntax: '*';
   inherits: false;
 }
