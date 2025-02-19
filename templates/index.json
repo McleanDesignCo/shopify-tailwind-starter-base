@@ -220,9 +220,7 @@
         "padding_bottom": 36
       }
     },
-<<<<<<< HEAD
-=======
-    "uinow_modern_video_gKNgDT": {
+    "uinow_modern_video_AnME9d": {
       "type": "uinow-modern-video",
       "settings": {
         "hero_video": "shopify://files/videos/xlarge_2x.mp4",
@@ -236,7 +234,6 @@
         "aspect_ratio_mobile": "3/4"
       }
     }
->>>>>>> aeb5f1636a084e03c3f3ce6cdc7f1e31c7dcbc2f
   },
   "order": [
     "image_banner",
@@ -245,9 +242,6 @@
     "collage",
     "video",
     "multicolumn",
-<<<<<<< HEAD
-=======
-    "uinow_modern_video_gKNgDT"
->>>>>>> aeb5f1636a084e03c3f3ce6cdc7f1e31c7dcbc2f
+    "uinow_modern_video_AnME9d"
   ]
 }
