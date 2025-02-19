@@ -1,0 +1,258 @@
+{% schema %}
+{
+  "name": "UINOW Modern Video",
+  "settings": [
+    {
+      "type": "video",
+      "id": "hero_video",
+      "label": "Hero Video"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "title",
+      "label": "Title",
+      "default": "Title"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "Description Area"
+    },
+    {
+      "type": "select",
+      "id": "animation",
+      "label": "Animation Style",
+      "options": [
+        { "value": "fade", "label": "Fade" },
+        { "value": "slide", "label": "Slide" },
+        { "value": "none", "label": "None" }
+      ],
+      "default": "fade"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "select",
+      "id": "aspect_ratio_desktop",
+      "label": "Aspect Ratio (Desktop)",
+      "options": [
+        { "value": "16/9", "label": "16:9" },
+        { "value": "4/3", "label": "4:3" },
+        { "value": "1/1", "label": "1:1" }
+      ],
+      "default": "16/9"
+    },
+    {
+      "type": "select",
+      "id": "aspect_ratio_tablet",
+      "label": "Aspect Ratio (Tablet)",
+      "options": [
+        { "value": "16/9", "label": "16:9" },
+        { "value": "4/3", "label": "4:3" },
+        { "value": "3/2", "label": "3:2" }
+      ],
+      "default": "16/9"
+    },
+    {
+      "type": "select",
+      "id": "aspect_ratio_mobile",
+      "label": "Aspect Ratio (Mobile)",
+      "options": [
+        { "value": "3/4", "label": "3:4" },
+        { "value": "9/16", "label": "9:16" },
+        { "value": "1/1", "label": "1:1" }
+      ],
+      "default": "3/4"
+    }
+  ],
+  "presets": [
+    {
+      "name": "UINOW Modern Video"
+    }
+  ]
+}
+{% endschema %}
+
+<section
+  class='iphone-hero-section page-width animation-{{ section.settings.animation }}'
+  style='padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;'
+>
+  <div class='iphone-hero-container'>
+    <header class='iphone-hero-header'>
+      <h1 class='text-tight scroll-trigger animate--slide-in'>{{ section.settings.title }}</h1>
+      <p class='text-tight scroll-trigger animate--slide-in'>{{ section.settings.description }}</p>
+    </header>
+
+    <div class='iphone-hero-media'>
+      {% if section.settings.hero_video != blank %}
+        <div class='video-wrapper full-width'>
+          <div class='video-container'>
+            {{
+              section.settings.hero_video
+              | video_tag:
+                autoplay: true,
+                muted: true,
+                loop: true,
+                playsinline: true,
+                controls: false,
+                class: 'iphone-hero-video'
+            }}
+          </div>
+          <button class='video-play-toggle playing' onclick='togglePlayPause(this)'>
+            <svg class='play-icon' viewBox='0 0 24 24'>
+              <path d="M8 5v14l11-7z"></path>
+            </svg>
+            <svg class='pause-icon' viewBox='0 0 24 24'>
+              <path d="M6 5h4v14H6zm8 0h4v14h-4z"></path>
+            </svg>
+          </button>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .iphone-hero-header {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      align-items: center;
+      padding-bottom: 12px;
+  }
+
+    .iphone-hero-section {
+      position: relative;
+      width: 100%;
+      max-width: var(--page-width);
+      margin: auto;
+      text-align: left;
+      overflow: hidden;
+    }
+
+    .iphone-hero-media {
+      position: relative;
+      width: 100%;
+      max-width: 100vw;
+      margin: auto;
+      display: flex;
+      justify-content: center;
+    }
+
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      border-radius: 20px;
+    }
+
+    @media (min-width: 1025px) {
+      .video-wrapper { aspect-ratio: {{ section.settings.aspect_ratio_desktop }}; }
+    }
+    @media (max-width: 1024px) and (min-width: 768px) {
+      .video-wrapper { aspect-ratio: {{ section.settings.aspect_ratio_tablet }}; }
+    }
+    @media (max-width: 767px) {
+      .video-wrapper { aspect-ratio: {{ section.settings.aspect_ratio_mobile }}; }
+    }
+
+    @media (max-width: 767px) {
+      .text-tight { margin: 0px; }
+    }
+
+    .iphone-hero-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .video-play-toggle {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: rgba(0, 0, 0, 0.5);
+      border: none;
+      cursor: pointer;
+      padding: 10px;
+      border-radius: 50%;
+    }
+
+    .video-play-toggle svg {
+      fill: white;
+      display: none;
+    }
+
+    @media (min-width: 1025px) {
+      .video-play-toggle svg {
+        width: 24px;
+        height: 24px;
+      }
+    }
+
+    @media (max-width: 1024px) and (min-width: 768px) {
+      .video-play-toggle svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .video-play-toggle svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+
+    .playing .pause-icon {
+      display: block;
+    }
+
+    .playing .play-icon {
+      display: none;
+    }
+
+    .paused .pause-icon {
+      display: none;
+    }
+
+    .paused .play-icon {
+      display: block;
+    }
+</style>
+
+<script>
+  function togglePlayPause(button) {
+    var video = button.closest('.video-wrapper').querySelector('.iphone-hero-video');
+
+    if (video.paused) {
+      video.play();
+      button.classList.remove('paused');
+      button.classList.add('playing');
+    } else {
+      video.pause();
+      button.classList.remove('playing');
+      button.classList.add('paused');
+    }
+  }
+</script>

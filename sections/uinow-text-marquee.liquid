@@ -1,0 +1,140 @@
+{% style %}
+  .text-marquee {
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    padding: 1em 0;
+    background-color: {{ section.settings.background_color }};
+  }
+  .text-marquee__inner {
+    display: inline-block;
+    white-space: nowrap;
+    transform: translateX(0);
+  }
+{% endstyle %}
+
+<div class='text-marquee'>
+  <div class='text-marquee__inner' id='marquee-{{ section.id }}'>
+    {% assign marquee_text = section.settings.marquee_text %}
+    <{{ section.settings.heading_tag }} class='text-marquee__text' style='color: {{ section.settings.text_color }};'>
+      {% for i in (1..6) %}
+        {{ marquee_text }} &nbsp;&nbsp;&nbsp;
+      {% endfor %}
+    </{{ section.settings.heading_tag }}>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var marquee = document.getElementById('marquee-{{ section.id }}');
+    var direction = "{{ section.settings.direction }}"; // "left" or "right"
+    var originalSpeed = {{ section.settings.speed }}; // seconds for one copy's width to scroll fully
+    var speedMultiplier = 1; // 1 for normal speed, 0.5 for half speed on hover
+    var lastTime = null;
+
+    // Calculate the width of one copy of the text.
+    var instanceWidth = marquee.scrollWidth / 6;
+    // Compute pixels per second so that one instance scrolls in 'originalSpeed' seconds.
+    var pxPerSec = instanceWidth / originalSpeed;
+
+    // 'pos' will track our current horizontal position.
+    var pos = 0;
+
+    function animate(time) {
+      if(lastTime === null) lastTime = time;
+      var dt = (time - lastTime) / 1000; // delta time in seconds
+      lastTime = time;
+
+      if(direction === "left") {
+        pos -= pxPerSec * speedMultiplier * dt;
+        // When one full instance has scrolled past, wrap it back.
+        if(pos <= -instanceWidth) {
+          pos += instanceWidth;
+        }
+      } else { // scrolling to the right
+        pos += pxPerSec * speedMultiplier * dt;
+        if(pos >= instanceWidth) {
+          pos -= instanceWidth;
+        }
+      }
+
+      marquee.style.transform = "translateX(" + pos + "px)";
+      requestAnimationFrame(animate);
+    }
+
+    requestAnimationFrame(animate);
+
+    // On mouseenter, slow down the scrolling (for example, to half speed)
+    marquee.addEventListener("mouseenter", function() {
+      speedMultiplier = 0.5;
+    });
+
+    // On mouseleave, restore normal speed
+    marquee.addEventListener("mouseleave", function() {
+      speedMultiplier = 1;
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "UINOW Text Marquee",
+  "settings": [
+    {
+      "type": "text",
+      "id": "marquee_text",
+      "label": "Marquee Text",
+      "default": "Welcome to our store! Enjoy exclusive deals and updates."
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "label": "Animation Speed (seconds per copy)",
+      "default": 15,
+      "min": 5,
+      "max": 60,
+      "step": 1
+    },
+    {
+      "type": "select",
+      "id": "direction",
+      "label": "Scroll Direction",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#f9f9f9"
+    },
+    {
+      "type": "select",
+      "id": "heading_tag",
+      "label": "Heading Tag",
+      "default": "h2",
+      "options": [
+        { "value": "h1", "label": "H1" },
+        { "value": "h2", "label": "H2" },
+        { "value": "h3", "label": "H3" },
+        { "value": "h4", "label": "H4" },
+        { "value": "h5", "label": "H5" }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#000000"
+    }
+  ],
+  "presets": [
+    {
+      "name": "UINOW Text Marquee"
+    }
+  ]
+}
+{% endschema %}
