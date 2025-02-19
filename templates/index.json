@@ -220,6 +220,20 @@
         "padding_bottom": 36
       }
     },
+    "uinow_modern_video_AnME9d": {
+      "type": "uinow-modern-video",
+      "settings": {
+        "hero_video": "shopify://files/videos/xlarge_2x.mp4",
+        "title": "Title",
+        "description": "Description Area",
+        "animation": "fade",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "aspect_ratio_desktop": "16/9",
+        "aspect_ratio_tablet": "16/9",
+        "aspect_ratio_mobile": "3/4"
+      }
+    }
   },
   "order": [
     "image_banner",
@@ -228,6 +242,6 @@
     "collage",
     "video",
     "multicolumn",
-    "uinow_modern_video_gKNgDT"
+    "uinow_modern_video_AnME9d"
   ]
 }
